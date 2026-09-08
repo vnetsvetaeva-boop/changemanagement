@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Four Routes of Change</title>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Bai Jamjuree',sans-serif;background:#fff;color:#000;padding:16px 20px;line-height:1.45;max-width:100%;margin:0 auto}
+
+.wrap{min-height:calc(100vh - 32px);display:flex;flex-direction:column;justify-content:center;gap:clamp(12px,1.4vw,20px)}
+
+.stage{background:#f7f7f5;border:1px solid #ecedea;border-radius:12px;padding:clamp(8px,1vw,14px)}
+svg{display:block;width:100%;height:auto}
+
+.route{cursor:pointer}
+.band{transition:opacity .2s}
+.route .band{opacity:.55}
+.route:hover .band,.route.active .band{opacity:1}
+.ridge{fill:none;stroke-width:3.5;stroke-linejoin:round;stroke-linecap:round;opacity:.55;transition:opacity .2s}
+.route:hover .ridge,.route.active .ridge{opacity:1}
+.fig{fill:none;stroke:#0A3D4F;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.fig-head{fill:#fff;stroke:#0A3D4F;stroke-width:4}
+.badge circle{fill:#fff;stroke:#0A3D4F;stroke-width:2.5;transition:fill .2s}
+.badge text{font-family:'Bai Jamjuree',sans-serif;font-size:14px;font-weight:700;fill:#0A3D4F;text-anchor:middle;dominant-baseline:central}
+.route.active .badge circle{fill:#0A3D4F}
+.route.active .badge text{fill:#fff}
+.rname{font-family:'Bai Jamjuree',sans-serif;font-size:14px;font-weight:600;fill:#5b6d72;text-anchor:middle;transition:fill .2s}
+.route:hover .rname,.route.active .rname{fill:#0A3D4F;font-weight:700}
+.hit{fill:transparent}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:inherit;font-size:clamp(11px,1vw,14px);font-weight:600;padding:6px 12px;border-radius:8px;
+  border:1px solid #ecedea;background:#f7f7f5;color:#555;cursor:pointer;transition:.18s;white-space:nowrap;
+  display:flex;align-items:center;gap:7px}
+.chip .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.chip:hover{border-color:#cfd5d3}
+.chip.active{background:#0A3D4F;border-color:#0A3D4F;color:#fff}
+
+.panel{background:#f7f7f5;border-left:5px solid #ecedea;border-radius:0 10px 10px 0;
+  padding:clamp(14px,1.6vw,24px) clamp(16px,1.8vw,28px);
+  display:flex;flex-direction:column;justify-content:center;min-height:clamp(150px,17vh,220px)}
+.panel h2{font-size:clamp(19px,2vw,28px);font-weight:700;line-height:1.15}
+.panel .sub{font-size:clamp(12px,1.1vw,15px);font-weight:700;text-transform:uppercase;letter-spacing:1.2px;margin-top:2px}
+.grid{display:flex;flex-wrap:wrap;gap:clamp(12px,1.6vw,28px);margin-top:clamp(10px,1.2vw,16px)}
+.cell{flex:1 1 240px;min-width:200px}
+.label{font-size:clamp(10px,.85vw,12px);font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#999}
+.cell p{font-size:clamp(15px,1.35vw,19px);font-weight:500;margin-top:3px}
+.empty{color:#999;font-size:clamp(15px,1.35vw,19px);font-weight:500}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="stage">
+    <svg viewBox="0 0 900 360" role="group" aria-label="Four routes of change, from a pebble on the path to Everest">
+
+      <!-- ROUTE 1 -->
+      <g class="route" data-r="1" tabindex="0" role="button" aria-label="Pebble on the Path">
+        <path class="band" fill="#22B573" d="M20,300 L230,300 L230,360 L20,360 Z"/>
+        <path class="ridge" stroke="#22B573" d="M20,300 L230,300"/>
+        <circle cx="163" cy="294" r="6" fill="#8d9a98"/>
+        <g class="fig" transform="translate(125,300)">
+          <circle class="fig-head" cx="0" cy="-40" r="8"/>
+          <path d="M0,-32 L0,-14"/>
+          <path d="M0,-28 L-10,-18 M0,-28 L10,-21"/>
+          <path d="M0,-14 L-9,0 M0,-14 L9,0"/>
+        </g>
+        <g class="badge" transform="translate(125,238)"><circle r="14"/><text>1</text></g>
+        <text class="rname" x="125" y="212">Pebble on the Path</text>
+        <rect class="hit" x="20" y="0" width="210" height="360"/>
+      </g>
+
+      <!-- ROUTE 2 -->
+      <g class="route" data-r="2" tabindex="0" role="button" aria-label="Gentle Ascent">
+        <path class="band" fill="#F2C037" d="M230,300 L450,250 L450,360 L230,360 Z"/>
+        <path class="ridge" stroke="#F2C037" d="M230,300 L450,250"/>
+        <g class="fig" transform="translate(340,275) rotate(7)">
+          <circle class="fig-head" cx="0" cy="-40" r="8"/>
+          <path d="M0,-32 L0,-14"/>
+          <path d="M0,-28 L-11,-20 M0,-28 L11,-24"/>
+          <path d="M0,-14 L-10,0 M0,-14 L10,-1"/>
+        </g>
+        <g class="badge" transform="translate(340,213)"><circle r="14"/><text>2</text></g>
+        <text class="rname" x="340" y="187">Gentle Ascent</text>
+        <rect class="hit" x="230" y="0" width="220" height="360"/>
+      </g>
+
+      <!-- ROUTE 3 -->
+      <g class="route" data-r="3" tabindex="0" role="button" aria-label="Steep Slope">
+        <path class="band" fill="#F2913D" d="M450,250 L650,145 L650,360 L450,360 Z"/>
+        <path class="ridge" stroke="#F2913D" d="M450,250 L650,145"/>
+        <g class="fig" transform="translate(550,197) rotate(11)">
+          <rect x="-16" y="-31" width="11" height="15" rx="3" fill="#0A3D4F" stroke="none"/>
+          <circle class="fig-head" cx="0" cy="-40" r="8"/>
+          <path d="M0,-32 L0,-14"/>
+          <path d="M0,-29 L-13,-22 M0,-29 L13,-33"/>
+          <path d="M0,-14 L-11,0 M0,-14 L11,-3"/>
+        </g>
+        <g class="badge" transform="translate(550,135)"><circle r="14"/><text>3</text></g>
+        <text class="rname" x="550" y="109">Steep Slope</text>
+        <rect class="hit" x="450" y="0" width="200" height="360"/>
+      </g>
+
+      <!-- ROUTE 4 -->
+      <g class="route" data-r="4" tabindex="0" role="button" aria-label="Everest">
+        <path class="band" fill="#E05252" d="M650,145 L830,62 L880,96 L880,360 L650,360 Z"/>
+        <path class="ridge" stroke="#E05252" d="M650,145 L830,62 L880,96"/>
+        <path d="M830,62 L806,73 L818,81 L830,74 L842,82 L855,76 Z" fill="#fff" opacity=".9"/>
+        <path d="M830,62 L830,26" stroke="#0A3D4F" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        <path d="M830,28 L858,36 L830,44 Z" fill="#E05252"/>
+        <g class="fig" transform="translate(752,99) rotate(15)">
+          <rect x="-17" y="-32" width="12" height="16" rx="3" fill="#0A3D4F" stroke="none"/>
+          <circle class="fig-head" cx="0" cy="-40" r="8"/>
+          <path d="M0,-32 L0,-14"/>
+          <path d="M0,-29 L-14,-24 M0,-29 L14,-38"/>
+          <path d="M0,-14 L-12,-1 M0,-14 L12,-5"/>
+        </g>
+        <g class="badge" transform="translate(752,43)"><circle r="14"/><text>4</text></g>
+        <text class="rname" x="742" y="17">Everest</text>
+        <rect class="hit" x="650" y="0" width="230" height="360"/>
+      </g>
+
+    </svg>
+  </div>
+
+  <div class="chips" id="chips"></div>
+
+  <div class="panel" id="panel">
+    <div class="empty">Click a figure on the route to see what that scale of change does to a team.</div>
+  </div>
+
+</div>
+
+<script>
+var ROUTES = {
+  "1":{name:"Pebble on the Path",tag:"Green",color:"#22B573",
+    ex:"A new email-signature template; a meeting moved by one hour.",
+    team:"The team handles it easily. The brain processes it in the background."},
+  "2":{name:"Gentle Ascent",tag:"Yellow",color:"#F2C037",
+    ex:"A new version of familiar software; additional fields in a report.",
+    team:"Requires focus and time to practice."},
+  "3":{name:"Steep Slope",tag:"Orange",color:"#F2913D",
+    ex:"A reorganization, a new manager, or a new CRM.",
+    team:"High stress. Affects status, relationships and KPIs. Requires active support."},
+  "4":{name:"Everest",tag:"Red",color:"#E05252",
+    ex:"A merger, a change in the business model, or mass layoffs.",
+    team:"Survival mode. The old reality has been dismantled and the new one has not yet been built."}
+};
+var ORDER=["1","2","3","4"];
+var chipsEl=document.getElementById('chips'),panelEl=document.getElementById('panel');
+
+ORDER.forEach(function(k){
+  var r=ROUTES[k];
+  var c=document.createElement('button');
+  c.className='chip';c.type='button';c.dataset.r=k;
+  c.innerHTML='<span class="dot" style="background:'+r.color+'"></span>'+k+'. '+r.name;
+  c.addEventListener('click',function(){select(k);});
+  chipsEl.appendChild(c);
+});
+
+function select(k){
+  var r=ROUTES[k];
+  panelEl.style.borderLeftColor=r.color;
+  panelEl.innerHTML='<h2>'+r.name+'</h2>'+
+    '<div class="sub" style="color:'+r.color+'">'+r.tag+' route</div>'+
+    '<div class="grid">'+
+      '<div class="cell"><div class="label">Examples</div><p>'+r.ex+'</p></div>'+
+      '<div class="cell"><div class="label">What happens to the team</div><p>'+r.team+'</p></div>'+
+    '</div>';
+  document.querySelectorAll('.route').forEach(function(g){g.classList.toggle('active',g.dataset.r===k);});
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.toggle('active',c.dataset.r===k);});
+}
+
+document.querySelectorAll('.route').forEach(function(g){
+  g.addEventListener('click',function(){select(g.dataset.r);});
+  g.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();select(g.dataset.r);}
+  });
+});
+</script>
+
+</body>
+</html>
