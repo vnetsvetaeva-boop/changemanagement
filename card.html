@@ -40,12 +40,31 @@ body{
   background:var(--bg);
   color:var(--ink);
   line-height:1.45;
-  font-size:15px;
+  font-size:1rem;
   overflow-x:hidden;
 }
+/* Scale text with the available screen (15px at 1200×760, up to 18px on larger screens) */
+html{font-size:15px;font-size:clamp(15px, min(1.15vw, 2.2vh), 18px)}
 .visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-.app{max-width:1200px;margin:0 auto;padding:14px 20px 16px;min-width:0}
+/* Fill the whole screen/iframe: card stretches, fields grow into free space */
+.app{max-width:1600px;margin:0 auto;padding:14px 20px 16px;min-width:0;min-height:100vh;display:flex;flex-direction:column}
+.stage{flex:1 1 auto;display:flex;flex-direction:column}
+#form{flex:1 1 auto;display:flex;flex-direction:column}
+.step{flex:1 1 auto;display:flex;flex-direction:column}
+.step-fill{flex:1 1 auto;display:flex;flex-direction:column}
+.step-fill>textarea,.grow{flex:1 1 auto}
+.step[data-step="2"] .cards{flex:1 1 auto}
+.ecard .field{flex:1 1 auto}
+.ecard .field textarea{flex:1 1 auto}
+.step[data-step="3"] .s3-grid{flex:1 1 auto;align-items:stretch}
+.step[data-step="3"] .s3-grid>.field{display:flex;flex-direction:column}
+.step[data-step="3"] .s3-grid>.field textarea{flex:1 1 auto}
+.step[data-step="3"] .s3-grid>div:last-child{display:flex;flex-direction:column}
+.step[data-step="3"] .support-field{flex:1 1 auto;display:flex;flex-direction:column}
+.step[data-step="3"] .support-field textarea{flex:1 1 auto}
+.step[data-step="4"] .plan{flex:1 1 auto;display:flex;flex-direction:column}
+.step[data-step="4"] .plan-rows{flex:1 1 auto;grid-auto-rows:1fr}
 
 /* Header: title + stepper + reset in one row */
 .topbar{display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap}
@@ -74,7 +93,7 @@ body{
 
 /* Main card */
 .stage{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:20px 26px 16px;min-width:0}
-.step-head{max-width:900px;margin-bottom:14px}
+.step-head{max-width:1100px;margin-bottom:14px}
 .step-kicker{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--purple-ink);margin-bottom:2px}
 .step h2{font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:4px}
 .step h2:focus{outline:none}
@@ -334,7 +353,7 @@ dialog::backdrop{background:rgba(16,47,59,.45)}
           <p class="lead">Choose one change that is currently affecting your team (for example, a new tool or system, a restructure, a process or policy update, new priorities, or a change in leadership). You will use it throughout this course to build your Team Support Plan.</p>
         </div>
 
-        <div class="field big" style="max-width:900px">
+        <div class="field big step-fill">
           <label for="f-change">The change I will focus on</label>
           <textarea id="f-change" data-key="change" rows="4" style="min-height:118px" aria-describedby="g-change c-change m-change" placeholder="Example: Moving the team to the new global workflow tool."></textarea>
           <div class="field-meta">
