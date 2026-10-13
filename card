@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Focus Priority — Leading Through Change</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E8ECED;
+  --ink:#102F3B;
+  --ink-2:#3E5A66;
+  --muted:#56707B;
+  --card:#FFFFFF;
+  --panel:#F4F7F8;
+  --border:#D3DBDE;
+  --border-strong:#B7C4C9;
+  --cyan:#80EAFF;
+  --cyan-soft:#E3FAFF;
+  --purple:#9580FF;
+  --purple-ink:#4B36C2;
+  --purple-soft:#EFECFF;
+  --lime:#D8FF57;
+  --lime-soft:#F4FFD3;
+  --success:#0F7A55;
+  --hint-ink:#7A4A00;
+  --hint-bg:#FFF6E3;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 1px 2px rgba(16,47,59,.06),0 6px 20px rgba(16,47,59,.07);
+  --focus:0 0 0 3px #FFFFFF,0 0 0 6px var(--purple-ink);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{
+  font-family:'Bai Jamjuree',Arial,sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.45;
+  font-size:15px;
+  overflow-x:hidden;
+}
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+.app{max-width:1200px;margin:0 auto;padding:14px 20px 16px;min-width:0}
+
+/* Header: title + stepper + reset in one row */
+.topbar{display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap}
+.title-block{min-width:0}
+.eyebrow{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:"";width:9px;height:9px;border-radius:3px;background:linear-gradient(135deg,var(--cyan),var(--purple))}
+.topbar h1{font-size:1.2rem;font-weight:700;line-height:1.25;margin-top:1px}
+
+.progress{flex:1 1 520px;min-width:0}
+.progress ol{list-style:none;display:flex;align-items:center;gap:6px}
+.progress li{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 0;padding:6px 10px 6px 6px;border-radius:999px;background:rgba(255,255,255,.55);border:1.5px solid transparent}
+.progress .num{flex:0 0 auto;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.82rem;background:#fff;border:1.5px solid var(--border-strong);color:var(--ink-2)}
+.progress .num svg{width:13px;height:13px}
+.progress .lbl{font-weight:600;font-size:.82rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress li[aria-current="step"]{background:#fff;border-color:var(--ink)}
+.progress li[aria-current="step"] .num{background:var(--ink);border-color:var(--ink);color:#fff}
+.progress li.done .num{background:var(--cyan);border-color:var(--cyan);color:var(--ink)}
+
+.btn-reset{
+  display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:.82rem;font-weight:600;
+  color:var(--ink);background:transparent;border:1.5px solid var(--border-strong);border-radius:999px;
+  padding:6px 12px;cursor:pointer;transition:background .15s,border-color .15s;white-space:nowrap
+}
+.btn-reset:hover{background:#fff;border-color:var(--ink-2)}
+.btn-reset svg{width:14px;height:14px}
+
+/* Main card */
+.stage{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--border);padding:20px 26px 16px;min-width:0}
+.step-head{max-width:900px;margin-bottom:14px}
+.step-kicker{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--purple-ink);margin-bottom:2px}
+.step h2{font-size:1.45rem;font-weight:700;line-height:1.2;margin-bottom:4px}
+.step h2:focus{outline:none}
+.step h2:focus-visible{outline:none;box-shadow:var(--focus);border-radius:6px}
+.lead{font-size:.98rem;color:var(--ink-2);font-weight:500}
+
+.info{display:flex;gap:12px;background:var(--panel);border-left:4px solid var(--cyan);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:12px 16px;margin-bottom:16px;max-width:900px}
+.info svg{flex:0 0 20px;width:20px;height:20px;color:var(--ink-2);margin-top:1px}
+.info p{font-size:.92rem}
+.info p+p{margin-top:4px}
+
+/* Fields */
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field label,.field .label{font-weight:700;font-size:.95rem}
+.field .opt{font-weight:500;color:var(--muted);font-size:.85rem}
+textarea{
+  font:inherit;font-size:.95rem;color:var(--ink);background:#fff;width:100%;
+  border:1.5px solid var(--border-strong);border-radius:12px;padding:10px 13px;resize:vertical;line-height:1.45;
+  transition:border-color .15s,box-shadow .15s
+}
+textarea::placeholder{color:#6B8089;opacity:1}
+textarea:hover{border-color:var(--ink-2)}
+textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 4px rgba(128,234,255,.6)}
+textarea[aria-invalid="true"]{border-color:#B86E00;background:#FFFCF5}
+.big textarea{font-size:1.02rem}
+.guidance{font-size:.85rem;color:var(--muted);display:flex;gap:6px;align-items:flex-start}
+.guidance svg{flex:0 0 15px;width:15px;height:15px;margin-top:2px}
+.field-meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.counter{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.counter.ok{color:var(--success);font-weight:600}
+.msg{display:none;align-items:flex-start;gap:6px;font-size:.85rem;font-weight:500;color:var(--hint-ink);background:var(--hint-bg);border-radius:8px;padding:6px 10px}
+.msg.show{display:flex}
+.msg svg{flex:0 0 14px;width:14px;height:14px;margin-top:2px}
+
+/* Flow visual */
+.flow{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.flow-item{display:flex;align-items:center;gap:8px;padding:5px 12px;border-radius:999px;font-weight:600;font-size:.85rem;border:1.5px solid var(--border)}
+.flow-item .dot{width:8px;height:8px;border-radius:50%}
+.flow-item.f1{background:var(--cyan-soft)} .flow-item.f1 .dot{background:#22B8D6}
+.flow-item.f2{background:var(--purple-soft)} .flow-item.f2 .dot{background:var(--purple)}
+.flow-item.f3{background:var(--lime-soft)} .flow-item.f3 .dot{background:#9FC71A}
+.flow-arrow{color:var(--muted);display:flex}
+.flow-arrow svg{width:18px;height:18px}
+
+/* Evidence cards */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ecard{border:1.5px solid var(--border);border-radius:var(--radius);padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:#fff;min-width:0;position:relative;transition:border-color .2s}
+.ecard.complete{border-color:#8FD9EA}
+.ecard-top{display:flex;align-items:center;gap:10px;padding-right:28px}
+.icon-badge{flex:0 0 34px;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:var(--ink)}
+.icon-badge svg{width:19px;height:19px}
+.c1 .icon-badge{background:var(--cyan-soft)}
+.c2 .icon-badge{background:var(--purple-soft)}
+.c3 .icon-badge{background:var(--lime-soft)}
+.check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--success);color:#fff;opacity:0;transform:scale(.6);transition:opacity .2s,transform .2s}
+.check svg{width:12px;height:12px}
+.ecard.complete .check{opacity:1;transform:scale(1)}
+.ecard h3{font-size:1.02rem;font-weight:700;line-height:1.25}
+.ecard .support{font-size:.86rem;color:var(--ink-2)}
+.ecard textarea{min-height:76px}
+.tag{align-self:flex-start;display:inline-flex;align-items:center;gap:5px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--purple-ink);background:var(--purple-soft);border:1px solid #CFC6FF;border-radius:999px;padding:3px 9px}
+.tag svg{width:12px;height:12px}
+.label-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+
+details.example{border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--panel)}
+details.example summary{cursor:pointer;list-style:none;padding:6px 10px;font-weight:600;font-size:.84rem;display:flex;align-items:center;gap:6px;border-radius:var(--radius-sm)}
+details.example summary::-webkit-details-marker{display:none}
+details.example summary .chev{width:14px;height:14px;transition:transform .2s;flex:0 0 14px}
+details.example[open] summary .chev{transform:rotate(90deg)}
+details.example summary:focus{outline:none}
+details.example summary:focus-visible{box-shadow:var(--focus)}
+.ex-body{padding:0 10px 10px;font-size:.84rem;display:flex;flex-direction:column;gap:6px}
+.ex-row{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start}
+.ex-pill{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:6px;white-space:nowrap}
+.ex-pill.obs{background:var(--cyan-soft);color:#075569;border:1px solid #9BE3F3}
+.ex-pill.int{background:#FCE9E6;color:#8A2A1A;border:1px solid #F1C2B9}
+.ex-note{font-weight:600;border-top:1px dashed var(--border-strong);padding-top:6px}
+
+.confirm{display:none;margin-top:12px;align-items:center;gap:10px;background:var(--lime-soft);border:1.5px solid #C3E84A;border-radius:12px;padding:8px 14px;font-weight:600;font-size:.9rem}
+.confirm.show{display:flex}
+.confirm svg{flex:0 0 20px;width:20px;height:20px;color:var(--success)}
+
+/* Step 3 summary */
+.summary{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px}
+.summary-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.summary-head h3{font-size:.72rem;text-transform:uppercase;letter-spacing:1.1px;font-weight:700;color:var(--ink-2)}
+.summary dl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.summary dl>div{background:#fff;border:1px solid var(--border);border-radius:10px;padding:8px 11px;min-width:0}
+.summary dt{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:2px}
+.summary dd{font-size:.86rem;font-weight:500;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.summary dl>div.chg{border-top:3px solid var(--ink)}
+.summary dl>div.obs{border-top:3px solid #22B8D6}
+.summary dl>div.hyp{border-top:3px solid var(--purple)}
+.summary dl>div.inv{border-top:3px solid #9FC71A}
+.edit-links{display:flex;gap:6px;flex-wrap:wrap}
+.link-btn{font:inherit;font-size:.8rem;font-weight:600;color:var(--ink);background:#fff;border:1.5px solid var(--border-strong);border-radius:999px;padding:4px 10px;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.link-btn svg{width:12px;height:12px}
+.link-btn:hover{border-color:var(--ink)}
+
+.s3-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:22px;align-items:start}
+.s3-grid .big textarea{min-height:118px}
+fieldset{border:0;min-width:0}
+legend{font-weight:700;font-size:.95rem;margin-bottom:6px}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.choice{position:relative;display:block}
+.choice input{position:absolute;opacity:0;width:1px;height:1px}
+.choice .box{display:flex;gap:10px;align-items:flex-start;border:1.5px solid var(--border-strong);border-radius:12px;padding:10px 12px;cursor:pointer;background:#fff;height:100%;transition:border-color .15s,background .15s,box-shadow .15s}
+.choice .box:hover{border-color:var(--ink-2)}
+.choice .radio{flex:0 0 20px;height:20px;border-radius:50%;border:2px solid var(--ink-2);display:grid;place-items:center;margin-top:1px;background:#fff}
+.choice .radio::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--ink);transform:scale(0);transition:transform .15s}
+.choice strong{display:block;font-weight:700;font-size:.92rem;line-height:1.25}
+.choice small{display:block;color:var(--ink-2);font-size:.8rem;line-height:1.3;margin-top:2px}
+.choice input:checked+.box{border-color:var(--ink);background:var(--cyan-soft);box-shadow:inset 0 0 0 1px var(--ink)}
+.choice.esc input:checked+.box{background:var(--purple-soft)}
+.choice input:checked+.box .radio{border-color:var(--ink)}
+.choice input:checked+.box .radio::after{transform:scale(1)}
+.choice input:focus-visible+.box{box-shadow:var(--focus)}
+fieldset[aria-invalid="true"] .choice .box{border-color:#B86E00}
+
+.support-field{margin-top:10px;border-radius:12px;border:1.5px solid transparent;transition:background .2s,padding .2s,border-color .2s}
+.support-field.prominent{background:var(--purple-soft);border-color:#CFC6FF;padding:10px 12px}
+.support-field .esc-note{display:none;font-size:.82rem;color:var(--purple-ink);font-weight:600}
+.support-field.prominent .esc-note{display:block}
+.support-field textarea{min-height:58px}
+
+/* Footer nav with privacy note */
+.nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:16px;padding-top:12px;border-top:1px solid var(--border);flex-wrap:wrap}
+.privacy{display:flex;align-items:flex-start;gap:8px;font-size:.8rem;color:var(--ink-2);max-width:640px;min-width:0;flex:1 1 360px}
+.privacy svg{flex:0 0 16px;width:16px;height:16px;margin-top:1px;color:var(--success)}
+.privacy strong{color:var(--ink)}
+.saved-flag{display:inline-flex;align-items:center;gap:4px;color:var(--success);font-weight:600;opacity:0;transition:opacity .2s;white-space:nowrap}
+.saved-flag.show{opacity:1}
+.nav-btns{display:flex;gap:8px;margin-left:auto}
+.btn{font:inherit;font-size:.95rem;font-weight:700;border-radius:10px;padding:10px 20px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:1.5px solid transparent;transition:background .15s,border-color .15s;white-space:nowrap}
+.btn svg{width:17px;height:17px}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-primary:hover{background:#1C4556}
+.btn-secondary{background:#fff;color:var(--ink);border-color:var(--border-strong)}
+.btn-secondary:hover{border-color:var(--ink)}
+.btn-accent{background:var(--cyan);color:var(--ink)}
+.btn-accent:hover{background:#5FDDF7}
+button:focus{outline:none}
+button:focus-visible{box-shadow:var(--focus);outline:none}
+
+/* Completion */
+.plan-hero{display:flex;gap:14px;align-items:center;background:linear-gradient(120deg,var(--cyan) 0%,#B9F3FF 55%,#D9D1FF 100%);border-radius:var(--radius);padding:14px 20px;margin-bottom:14px}
+.plan-hero .seal{flex:0 0 44px;width:44px;height:44px;border-radius:50%;background:#fff;display:grid;place-items:center;color:var(--success);box-shadow:0 4px 12px rgba(16,47,59,.12)}
+.plan-hero .seal svg{width:24px;height:24px}
+.plan-hero .eyebrow::before{background:var(--ink)}
+.plan-hero h2{font-size:1.4rem;margin:1px 0 2px}
+.plan-hero p{color:#0A3D4F;font-weight:500;font-size:.92rem}
+.plan{border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.plan-priority{background:var(--lime-soft);border-bottom:1.5px solid var(--border);padding:14px 20px;display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.plan-priority>div{min-width:0;flex:1 1 400px}
+.k{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:2px}
+.plan-priority .v{font-size:1.12rem;font-weight:700;line-height:1.35;overflow-wrap:anywhere}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.76rem;font-weight:700;border-radius:999px;padding:4px 11px;white-space:nowrap}
+.badge.ctrl{background:var(--cyan-soft);color:#075569;border:1px solid #9BE3F3}
+.badge.esc{background:var(--purple-soft);color:var(--purple-ink);border:1px solid #CFC6FF}
+.badge svg{width:13px;height:13px}
+.plan-rows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.plan-rows>div{padding:10px 20px;border-bottom:1px solid var(--border);min-width:0}
+.plan-rows>div.l{border-right:1px solid var(--border)}
+.plan-rows .full{grid-column:1/-1}
+.plan-rows .v{font-weight:500;font-size:.92rem;overflow-wrap:anywhere;white-space:pre-wrap}
+.plan-rows>div:last-child{border-bottom:0}
+.plan-private{margin-top:12px;display:flex;gap:8px;align-items:flex-start;font-size:.86rem;color:var(--ink-2);background:var(--panel);border-radius:10px;padding:10px 14px}
+.plan-private svg{flex:0 0 16px;width:16px;height:16px;color:var(--success);margin-top:2px}
+
+/* Dialog */
+dialog{border:0;border-radius:var(--radius);padding:0;max-width:440px;width:calc(100% - 32px);color:var(--ink);box-shadow:0 20px 60px rgba(16,47,59,.3);font-family:inherit;margin:auto}
+dialog::backdrop{background:rgba(16,47,59,.45)}
+.dlg{padding:22px 22px 18px}
+.dlg h2{font-size:1.2rem;margin-bottom:6px}
+.dlg p{color:var(--ink-2);margin-bottom:18px;font-size:.95rem}
+.dlg-btns{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+.btn-danger{background:#A3301E;color:#fff}
+.btn-danger:hover{background:#86261A}
+
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:9px 16px;border-radius:999px;font-weight:600;font-size:.88rem;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* Responsive */
+@media (max-width:1000px){
+  .cards{grid-template-columns:1fr}
+  .summary dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .s3-grid{grid-template-columns:1fr;gap:16px}
+  .progress{flex-basis:100%;order:3}
+}
+@media (max-width:640px){
+  .app{padding:12px 12px 16px}
+  .stage{padding:16px 14px}
+  .progress .lbl{display:none}
+  .progress li{justify-content:center;padding:6px}
+  .flow{flex-direction:column;align-items:stretch}
+  .flow-arrow{transform:rotate(90deg);align-self:center}
+  .summary dl,.plan-rows,.choices{grid-template-columns:1fr}
+  .plan-rows>div.l{border-right:0}
+  .nav-btns{width:100%}
+  .nav-btns .btn{flex:1;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{
+  body{background:#fff}
+  .btn-reset,.progress,.nav,.toast{display:none!important}
+  .stage{box-shadow:none;border:0;padding:0}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5"/><path d="M12 8h.01"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-thought" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8"/><path d="M8 13h5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-arrow-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-arrow-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></symbol>
+  <symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4"/><path d="M4 4h12l-2 4 2 4H4"/></symbol>
+  <symbol id="i-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+  <symbol id="i-hand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 11V6a2 2 0 0 0-4 0v5"/><path d="M12 10V4a2 2 0 0 0-4 0v7"/><path d="M8 11V8a2 2 0 0 0-4 0v6a8 8 0 0 0 16 0v-3a2 2 0 0 0-4 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+</svg>
+
+<div class="app">
+  <header class="topbar">
+    <div class="title-block">
+      <p class="eyebrow">Leading Through Change</p>
+      <h1>Your Starting Point</h1>
+    </div>
+    <nav class="progress" aria-label="Activity progress">
+      <ol id="stepper">
+        <li data-i="1"><span class="num" aria-hidden="true">1</span><span class="lbl">Choose one active change</span><span class="visually-hidden status"></span></li>
+        <li data-i="2"><span class="num" aria-hidden="true">2</span><span class="lbl">Check the evidence</span><span class="visually-hidden status"></span></li>
+        <li data-i="3"><span class="num" aria-hidden="true">3</span><span class="lbl">Set your focus priority</span><span class="visually-hidden status"></span></li>
+      </ol>
+    </nav>
+    <button type="button" class="btn-reset" id="resetBtn"><svg aria-hidden="true"><use href="#i-reset"/></svg>Reset activity</button>
+  </header>
+
+  <main id="main" class="stage">
+    <form id="form" novalidate>
+
+      <!-- STEP 1 -->
+      <section class="step" data-step="1" aria-labelledby="h1s">
+        <div class="step-head">
+          <p class="step-kicker">Step 1 of 3</p>
+          <h2 id="h1s" tabindex="-1">Start with One Active Change</h2>
+          <p class="lead">Choose one change that is currently affecting your team (for example, a new tool or system, a restructure, a process or policy update, new priorities, or a change in leadership). You will use it throughout this course to build your Team Support Plan.</p>
+        </div>
+
+        <div class="field big" style="max-width:900px">
+          <label for="f-change">The change I will focus on</label>
+          <textarea id="f-change" data-key="change" rows="4" style="min-height:118px" aria-describedby="g-change c-change m-change" placeholder="Example: Moving the team to the new global workflow tool."></textarea>
+          <div class="field-meta">
+            <p class="guidance" id="g-change"><svg aria-hidden="true"><use href="#i-lightbulb"/></svg>Choose one specific change rather than a general period of transformation.</p>
+            <p class="counter" id="c-change" aria-live="polite"></p>
+          </div>
+          <p class="msg" id="m-change" role="status"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+        </div>
+      </section>
+
+      <!-- STEP 2 -->
+      <section class="step" data-step="2" aria-labelledby="h2s" hidden>
+        <div class="step-head">
+          <p class="step-kicker">Step 2 of 3</p>
+          <h2 id="h2s" tabindex="-1">Check What You Know</h2>
+          <p class="lead">Before deciding what to do, separate what you can observe from what you think may be causing it. You do not need complete answers yet.</p>
+        </div>
+
+        <div class="flow" role="img" aria-label="Process: Observation, then Possible explanation, then Question to investigate">
+          <span class="flow-item f1"><span class="dot"></span>Observation</span>
+          <span class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
+          <span class="flow-item f2"><span class="dot"></span>Possible explanation</span>
+          <span class="flow-arrow"><svg aria-hidden="true"><use href="#i-arrow-r"/></svg></span>
+          <span class="flow-item f3"><span class="dot"></span>Question to investigate</span>
+        </div>
+
+        <div class="cards">
+          <article class="ecard c1" id="card-observe" aria-labelledby="h-c1">
+            <span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+            <div class="ecard-top">
+              <span class="icon-badge" aria-hidden="true"><svg><use href="#i-eye"/></svg></span>
+              <h3 id="h-c1">1. What can you observe?</h3>
+            </div>
+            <p class="support" id="s-observe">Record behavior or events that another person could also see or verify. Avoid labels such as “resistant,” “negative,” or “not committed.”</p>
+            <div class="field">
+              <label for="f-observe">Observable evidence</label>
+              <textarea id="f-observe" data-key="observe" rows="3" aria-describedby="s-observe m-observe" placeholder="Example: Three team members return to the old system when workloads increase."></textarea>
+              <p class="msg" id="m-observe" role="status"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+            </div>
+            <details class="example">
+              <summary><svg class="chev" aria-hidden="true"><use href="#i-chev"/></svg>See an example</summary>
+              <div class="ex-body">
+                <div class="ex-row"><span class="ex-pill obs">Observation</span><span>Three people used the old system during the last two high-volume periods.</span></div>
+                <div class="ex-row"><span class="ex-pill int">Interpretation</span><span>The team does not support the change.</span></div>
+                <p class="ex-note">Only the first statement is directly observable.</p>
+              </div>
+            </details>
+          </article>
+
+          <article class="ecard c2" id="card-barrier" aria-labelledby="h-c2">
+            <span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+            <div class="ecard-top">
+              <span class="icon-badge" aria-hidden="true"><svg><use href="#i-thought"/></svg></span>
+              <h3 id="h-c2">2. What might be getting in the way?</h3>
+            </div>
+            <p class="support" id="s-barrier">Add a possible explanation, but treat it as a hypothesis—not as a fact.</p>
+            <div class="field">
+              <div class="label-row">
+                <label for="f-barrier">Possible barrier or concern</label>
+                <span class="tag" id="t-barrier"><svg aria-hidden="true"><use href="#i-flag"/></svg>Hypothesis — still needs to be checked</span>
+              </div>
+              <textarea id="f-barrier" data-key="barrier" rows="3" aria-describedby="t-barrier s-barrier m-barrier" placeholder="Example: The new approval step may take too long during busy periods."></textarea>
+              <p class="msg" id="m-barrier" role="status"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+            </div>
+          </article>
+
+          <article class="ecard c3" id="card-investigate" aria-labelledby="h-c3">
+            <span class="check" aria-hidden="true"><svg><use href="#i-check"/></svg></span>
+            <div class="ecard-top">
+              <span class="icon-badge" aria-hidden="true"><svg><use href="#i-chat"/></svg></span>
+              <h3 id="h-c3">3. What still needs to be checked?</h3>
+            </div>
+            <p class="support" id="s-investigate">Identify the question, conversation, or evidence that could confirm or challenge your explanation.</p>
+            <div class="field">
+              <label for="f-investigate">What I need to investigate</label>
+              <textarea id="f-investigate" data-key="investigate" rows="3" aria-describedby="s-investigate m-investigate" placeholder="Example: Ask when the new process begins to slow the work down and compare completion times."></textarea>
+              <p class="msg" id="m-investigate" role="status"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+            </div>
+          </article>
+        </div>
+
+        <div class="confirm" id="evidenceConfirm" role="status" aria-live="polite">
+          <svg aria-hidden="true"><use href="#i-check-circle"/></svg>
+          <p>You now have an observation, a hypothesis, and a question to investigate. That is enough to choose a useful starting point.</p>
+        </div>
+      </section>
+
+      <!-- STEP 3 -->
+      <section class="step" data-step="3" aria-labelledby="h3s" hidden>
+        <div class="step-head">
+          <p class="step-kicker">Step 3 of 3</p>
+          <h2 id="h3s" tabindex="-1">Choose Your Focus Priority</h2>
+          <p class="lead">Turn your evidence check into one specific priority that you can investigate or act on during this course.</p>
+        </div>
+
+        <section class="summary" aria-labelledby="sumH">
+          <div class="summary-head">
+            <h3 id="sumH">Your answers so far</h3>
+            <div class="edit-links">
+              <button type="button" class="link-btn" data-goto="1"><svg aria-hidden="true"><use href="#i-pencil"/></svg>Edit change</button>
+              <button type="button" class="link-btn" data-goto="2"><svg aria-hidden="true"><use href="#i-pencil"/></svg>Edit evidence</button>
+            </div>
+          </div>
+          <dl>
+            <div class="chg"><dt>Active change</dt><dd data-sum="change"></dd></div>
+            <div class="obs"><dt>What I observed</dt><dd data-sum="observe"></dd></div>
+            <div class="hyp"><dt>What may be getting in the way</dt><dd data-sum="barrier"></dd></div>
+            <div class="inv"><dt>What I still need to check</dt><dd data-sum="investigate"></dd></div>
+          </dl>
+        </section>
+
+        <div class="s3-grid">
+          <div class="field big">
+            <label for="f-priority">My focus priority</label>
+            <textarea id="f-priority" data-key="priority" rows="4" aria-describedby="g-priority m-priority" placeholder="Example: Understand why the new approval step leads people to return to the old system during busy periods."></textarea>
+            <p class="guidance" id="g-priority"><svg aria-hidden="true"><use href="#i-lightbulb"/></svg>Make the priority specific and observable. Avoid broad statements such as “the team is resistant.”</p>
+            <p class="msg" id="m-priority" role="status"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+          </div>
+
+          <div>
+            <fieldset id="fs-control" aria-describedby="m-control">
+              <legend>Is this priority within your control?</legend>
+              <div class="choices">
+                <label class="choice">
+                  <input type="radio" name="control" value="control">
+                  <span class="box"><span class="radio" aria-hidden="true"></span><span><strong>Within my control</strong><small>I can act on this with my team directly.</small></span></span>
+                </label>
+                <label class="choice esc">
+                  <input type="radio" name="control" value="escalate">
+                  <span class="box"><span class="radio" aria-hidden="true"></span><span><strong>Requires support or escalation</strong><small>Progress depends on people or decisions beyond my team.</small></span></span>
+                </label>
+              </div>
+              <p class="msg" id="m-control" role="status" style="margin-top:6px"><svg aria-hidden="true"><use href="#i-info"/></svg><span></span></p>
+            </fieldset>
+
+            <div class="field support-field" id="supportWrap">
+              <label for="f-support">Who or what support may be needed? <span class="opt">(optional)</span></label>
+              <p class="esc-note" id="n-support">Naming the support now will make it easier to ask for it later.</p>
+              <textarea id="f-support" data-key="support" rows="2" aria-describedby="n-support" placeholder="Example: System administrator, senior leader, additional capacity, or a policy decision."></textarea>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPLETION -->
+      <section class="step" data-step="4" aria-labelledby="h4s" hidden>
+        <div class="plan-hero">
+          <span class="seal" aria-hidden="true"><svg><use href="#i-check-circle"/></svg></span>
+          <div>
+            <p class="eyebrow">Saved to your plan</p>
+            <h2 id="h4s" tabindex="-1">Your Team Support Plan Entry</h2>
+            <p>This is the starting point you will build on throughout the course.</p>
+          </div>
+        </div>
+
+        <article class="plan" aria-label="Team Support Plan entry">
+          <div class="plan-priority">
+            <div>
+              <p class="k">My focus priority</p>
+              <p class="v" data-plan="priority"></p>
+            </div>
+            <span class="badge" id="planBadge"></span>
+          </div>
+          <div class="plan-rows" id="planRows">
+            <div class="full"><p class="k">Active change</p><p class="v" data-plan="change"></p></div>
+            <div class="l"><p class="k">What I observed</p><p class="v" data-plan="observe"></p></div>
+            <div><p class="k">What may be getting in the way (hypothesis)</p><p class="v" data-plan="barrier"></p></div>
+            <div id="rowInvestigate"><p class="k">What I still need to check</p><p class="v" data-plan="investigate"></p></div>
+            <div id="rowSupport"><p class="k">Support that may be needed</p><p class="v" data-plan="support"></p></div>
+          </div>
+        </article>
+
+        <p class="plan-private"><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Only you can see this plan.</strong> It is stored in this browser on this device, not in the course platform. To keep a copy, use <em>Copy text</em> or <em>Print or save as PDF</em>.</span></p>
+      </section>
+
+      <div class="nav">
+        <p class="privacy" id="privacyNote"><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Your answers are private.</strong> They are saved only in this browser on your device and are not sent anywhere. Your manager, HR, and the course team cannot see them. <span class="saved-flag" id="savedFlag" aria-live="polite"></span></span></p>
+        <div class="nav-btns" id="stepBtns">
+          <button type="button" class="btn btn-secondary" id="backBtn"><svg aria-hidden="true"><use href="#i-arrow-l"/></svg>Back</button>
+          <button type="submit" class="btn btn-primary" id="nextBtn">Continue<svg aria-hidden="true"><use href="#i-arrow-r"/></svg></button>
+        </div>
+        <div class="nav-btns" id="doneBtns" hidden>
+          <button type="button" class="btn btn-secondary" id="editPlanBtn"><svg aria-hidden="true"><use href="#i-pencil"/></svg>Edit</button>
+          <button type="button" class="btn btn-secondary" id="copyBtn"><svg aria-hidden="true"><use href="#i-copy"/></svg>Copy text</button>
+          <button type="button" class="btn btn-accent" id="printBtn"><svg aria-hidden="true"><use href="#i-print"/></svg>Print or save as PDF</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+
+<dialog id="resetDlg" aria-labelledby="dlgH" aria-describedby="dlgP">
+  <div class="dlg">
+    <h2 id="dlgH">Reset this activity?</h2>
+    <p id="dlgP">All of your answers in this activity will be cleared from this browser. This cannot be undone.</p>
+    <div class="dlg-btns">
+      <button type="button" class="btn btn-secondary" id="dlgCancel">Keep my answers</button>
+      <button type="button" class="btn btn-danger" id="dlgConfirm">Reset activity</button>
+    </div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="visually-hidden" id="announcer" aria-live="polite"></div>
+
+<script>
+(function(){
+  'use strict';
+  var KEY = 'ltc-focus-priority-activity-v1';
+  var MIN_CHANGE = 10;
+  var defaults = {step:1, change:'', observe:'', barrier:'', investigate:'', priority:'', control:'', support:'', saved:false};
+  var state = load();
+
+  function load(){
+    var s = Object.assign({}, defaults);
+    try{
+      var raw = window.localStorage.getItem(KEY);
+      if(raw){ var p = JSON.parse(raw); if(p && typeof p === 'object'){ Object.keys(defaults).forEach(function(k){ if(typeof p[k] === typeof defaults[k]) s[k] = p[k]; }); } }
+    }catch(e){}
+    if([1,2,3,4].indexOf(s.step) === -1) s.step = 1;
+    return s;
+  }
+  var flagTimer;
+  function save(silent){
+    try{
+      window.localStorage.setItem(KEY, JSON.stringify(state));
+      if(!silent){
+        var f = $('#savedFlag'); f.textContent = '✓ Saved'; f.classList.add('show');
+        clearTimeout(flagTimer); flagTimer = setTimeout(function(){ f.classList.remove('show'); f.textContent=''; }, 1800);
+      }
+    }catch(e){}
+  }
+
+  function $(s,ctx){ return (ctx||document).querySelector(s); }
+  function $$(s,ctx){ return Array.prototype.slice.call((ctx||document).querySelectorAll(s)); }
+  function val(k){ return (state[k]||'').trim(); }
+  function announce(t){ var a=$('#announcer'); a.textContent=''; setTimeout(function(){ a.textContent=t; },50); }
+
+  var form = $('#form');
+  var textareas = $$('textarea[data-key]');
+
+  textareas.forEach(function(t){
+    t.value = state[t.dataset.key] || '';
+    var timer;
+    t.addEventListener('input', function(){
+      state[t.dataset.key] = t.value;
+      if(t.getAttribute('aria-invalid') === 'true' && t.value.trim()){
+        if(t.dataset.key !== 'change' || t.value.trim().length >= MIN_CHANGE) clearMsg(t.dataset.key);
+      }
+      updateLive();
+      clearTimeout(timer); timer = setTimeout(function(){ save(); }, 500);
+    });
+  });
+  $$('input[name="control"]').forEach(function(r){
+    r.checked = (r.value === state.control);
+    r.addEventListener('change', function(){ state.control = r.value; clearMsg('control'); updateSupport(); save(); });
+  });
+
+  function setMsg(key, text){
+    var m = $('#m-' + key); if(!m) return;
+    m.querySelector('span').textContent = text; m.classList.add('show');
+    var target = key === 'control' ? $('#fs-control') : $('#f-' + key);
+    if(target) target.setAttribute('aria-invalid','true');
+  }
+  function clearMsg(key){
+    var m = $('#m-' + key); if(m){ m.classList.remove('show'); m.querySelector('span').textContent=''; }
+    var target = key === 'control' ? $('#fs-control') : $('#f-' + key);
+    if(target) target.removeAttribute('aria-invalid');
+  }
+
+  function updateLive(){
+    var len = val('change').length, c = $('#c-change');
+    if(len === 0){ c.textContent = 'At least ' + MIN_CHANGE + ' characters'; c.classList.remove('ok'); }
+    else if(len < MIN_CHANGE){ c.textContent = (MIN_CHANGE - len) + ' more character' + (MIN_CHANGE-len===1?'':'s') + ' needed'; c.classList.remove('ok'); }
+    else { c.textContent = '✓ Ready to continue'; c.classList.add('ok'); }
+    var all = true;
+    ['observe','barrier','investigate'].forEach(function(k){
+      var done = !!val(k); if(!done) all = false;
+      $('#card-' + k).classList.toggle('complete', done);
+    });
+    $('#evidenceConfirm').classList.toggle('show', all);
+    updateStepper();
+  }
+
+  function updateSupport(){ $('#supportWrap').classList.toggle('prominent', state.control === 'escalate'); }
+
+  function stepComplete(n){
+    if(n===1) return val('change').length >= MIN_CHANGE;
+    if(n===2) return !!(val('observe') && val('barrier') && val('investigate'));
+    return false;
+  }
+
+  function updateStepper(){
+    var cur = state.step;
+    $$('#stepper li').forEach(function(li){
+      var i = +li.dataset.i, num = li.querySelector('.num'), st = li.querySelector('.status');
+      var done = cur === 4 || (i < cur && stepComplete(i));
+      li.classList.toggle('done', done);
+      if(i === cur) li.setAttribute('aria-current','step'); else li.removeAttribute('aria-current');
+      num.innerHTML = done ? '<svg><use href="#i-check"/></svg>' : String(i);
+      st.textContent = i === cur ? ', current step' : (done ? ', completed' : '');
+    });
+  }
+
+  function fillSummary(){
+    $$('[data-sum]').forEach(function(d){ d.textContent = val(d.dataset.sum) || '—'; d.title = val(d.dataset.sum); });
+  }
+  function fillPlan(){
+    $$('[data-plan]').forEach(function(d){ d.textContent = val(d.dataset.plan) || '—'; });
+    var b = $('#planBadge');
+    if(state.control === 'escalate'){ b.className='badge esc'; b.innerHTML='<svg aria-hidden="true"><use href="#i-users"/></svg>Requires support or escalation'; }
+    else { b.className='badge ctrl'; b.innerHTML='<svg aria-hidden="true"><use href="#i-hand"/></svg>Within my control'; }
+    var hasSupport = !!val('support');
+    $('#rowSupport').hidden = !hasSupport;
+    var ri = $('#rowInvestigate');
+    ri.classList.toggle('full', !hasSupport);
+    ri.classList.toggle('l', hasSupport);
+  }
+
+  function show(n, focus){
+    state.step = n;
+    $$('.step').forEach(function(s){ s.hidden = (+s.dataset.step !== n); });
+    $('#stepBtns').hidden = (n === 4);
+    $('#doneBtns').hidden = (n !== 4);
+    $('#privacyNote').hidden = (n === 4);
+    var back = $('#backBtn');
+    back.style.visibility = n === 1 ? 'hidden' : 'visible';
+    back.tabIndex = n === 1 ? -1 : 0;
+    back.setAttribute('aria-hidden', n === 1 ? 'true' : 'false');
+    $('#nextBtn').innerHTML = n === 3 ? 'Save to My Plan<svg aria-hidden="true"><use href="#i-check"/></svg>' : 'Continue<svg aria-hidden="true"><use href="#i-arrow-r"/></svg>';
+    if(n === 3){ fillSummary(); updateSupport(); }
+    if(n === 4) fillPlan();
+    updateStepper();
+    save(true);
+    if(focus){
+      window.scrollTo(0,0);
+      var h = $('.step[data-step="'+n+'"] h2');
+      if(h) h.focus({preventScroll:true});
+    }
+  }
+
+  function validate(n){
+    var first = null;
+    if(n === 1){
+      var len = val('change').length;
+      if(len === 0){ setMsg('change','Add the change you want to focus on. A short phrase is enough to get started.'); first = $('#f-change'); }
+      else if(len < MIN_CHANGE){ setMsg('change','Add a little more detail so the change is specific enough to work with (at least ' + MIN_CHANGE + ' characters).'); first = $('#f-change'); }
+      else clearMsg('change');
+    }
+    if(n === 2){
+      var msgs = {
+        observe:'Add one thing you have seen or heard. A single sentence is enough.',
+        barrier:'Add one possible explanation. It does not need to be right yet.',
+        investigate:'Add one question or conversation that could test your explanation.'
+      };
+      ['observe','barrier','investigate'].forEach(function(k){
+        if(!val(k)){ setMsg(k, msgs[k]); if(!first) first = $('#f-' + k); } else clearMsg(k);
+      });
+    }
+    if(n === 3){
+      if(!val('priority')){ setMsg('priority','Add your focus priority. One clear sentence is enough.'); first = $('#f-priority'); } else clearMsg('priority');
+      if(!state.control){ setMsg('control','Choose the option that best describes this priority.'); if(!first) first = $('input[name="control"]'); } else clearMsg('control');
+    }
+    if(first){ first.focus(); announce('A few answers still need your input before you continue.'); return false; }
+    return true;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var n = state.step;
+    if(n > 3 || !validate(n)) return;
+    if(n === 3){ state.saved = true; show(4, true); announce('Saved to your Team Support Plan.'); }
+    else show(n + 1, true);
+  });
+  $('#backBtn').addEventListener('click', function(){ if(state.step > 1) show(state.step - 1, true); });
+  $$('[data-goto]').forEach(function(b){ b.addEventListener('click', function(){ show(+b.dataset.goto, true); }); });
+  $('#editPlanBtn').addEventListener('click', function(){ show(3, true); });
+  $('#printBtn').addEventListener('click', function(){ window.print(); });
+
+  $('#copyBtn').addEventListener('click', function(){
+    var lines = [
+      'TEAM SUPPORT PLAN ENTRY — Leading Through Change','',
+      'My focus priority: ' + val('priority'),
+      'Type: ' + (state.control === 'escalate' ? 'Requires support or escalation' : 'Within my control'),'',
+      'Active change: ' + val('change'),
+      'What I observed: ' + val('observe'),
+      'What may be getting in the way (hypothesis): ' + val('barrier'),
+      'What I still need to check: ' + val('investigate')
+    ];
+    if(val('support')) lines.push('Support that may be needed: ' + val('support'));
+    var text = lines.join('\n');
+    function ok(){ toast('Plan entry copied to clipboard'); }
+    function fallback(){
+      var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly','');
+      ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy') ? ok() : toast('Copy is not available here. Use Print or save as PDF instead.'); }catch(e){ toast('Copy is not available here. Use Print or save as PDF instead.'); }
+      document.body.removeChild(ta); $('#copyBtn').focus();
+    }
+    if(navigator.clipboard && window.isSecureContext){ navigator.clipboard.writeText(text).then(ok, fallback); } else fallback();
+  });
+
+  var toastTimer;
+  function toast(t){
+    var el = $('#toast'); el.textContent = t; el.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2400);
+  }
+
+  var dlg = $('#resetDlg'), lastFocus = null;
+  function openDlg(){
+    lastFocus = document.activeElement;
+    if(typeof dlg.showModal === 'function'){ dlg.showModal(); $('#dlgCancel').focus(); }
+    else if(window.confirm('Reset this activity? All of your answers will be cleared from this browser.')) doReset();
+  }
+  function closeDlg(){ if(dlg.open) dlg.close(); }
+  dlg.addEventListener('close', function(){ if(lastFocus && document.body.contains(lastFocus)) lastFocus.focus(); });
+  dlg.addEventListener('click', function(e){ if(e.target === dlg) closeDlg(); });
+  $('#resetBtn').addEventListener('click', openDlg);
+  $('#dlgCancel').addEventListener('click', closeDlg);
+  $('#dlgConfirm').addEventListener('click', function(){ lastFocus = null; closeDlg(); doReset(); });
+
+  function doReset(){
+    try{ window.localStorage.removeItem(KEY); }catch(e){}
+    state = Object.assign({}, defaults);
+    textareas.forEach(function(t){ t.value=''; });
+    $$('input[name="control"]').forEach(function(r){ r.checked=false; });
+    ['change','observe','barrier','investigate','priority','control'].forEach(clearMsg);
+    $$('details.example').forEach(function(d){ d.open=false; });
+    updateLive(); updateSupport();
+    show(1, true);
+    toast('Activity reset. You can start again.');
+  }
+
+  updateLive();
+  updateSupport();
+  show(state.step, false);
+})();
+</script>
+</body>
+</html>
