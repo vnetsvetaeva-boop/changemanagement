@@ -14,18 +14,8 @@ button:focus,textarea:focus{outline:none}
 button:focus-visible{outline:3px solid #0A3D4F;outline-offset:3px}
 
 .app{min-height:calc(100vh - 40px);display:flex;flex-direction:column;gap:14px}
-.view{flex:1 1 auto;display:flex;flex-direction:column;gap:14px;min-height:0}
+.lead{background:#f7f7f5;border-left:4px solid #80EAFF;border-radius:0 10px 10px 0;padding:10px 18px;font-size:18px;font-weight:600;color:#0A3D4F}
 
-/* Stepper */
-.steps{list-style:none;display:flex;gap:8px}
-.steps li{flex:1 1 0;min-width:0}
-.stp{width:100%;display:flex;align-items:center;gap:10px;background:#f4f4f3;border:2px solid #ecedea;border-radius:999px;padding:6px 14px 6px 6px;cursor:pointer;text-align:left}
-.stp .n{flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid #cfd2cc;font-weight:700;font-size:14px;color:#555}
-.stp .n svg{width:14px;height:14px}
-.stp .l{font-size:15px;font-weight:700;color:#0A3D4F;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.stp[aria-current="step"]{background:#fff;border-color:#50D0ED}
-.stp[aria-current="step"] .n{background:linear-gradient(135deg,#80EAFF,#50D0ED);border-color:#50D0ED;color:#0A3D4F}
-.stp.done .n{background:#10B981;border-color:#10B981;color:#fff}
 
 .lead{background:#f7f7f5;border-left:4px solid #80EAFF;border-radius:0 10px 10px 0;padding:10px 18px;font-size:18px;font-weight:600;color:#0A3D4F}
 
@@ -49,76 +39,24 @@ button:focus-visible{outline:3px solid #0A3D4F;outline-offset:3px}
 .row .k{display:block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--x);margin-bottom:1px}
 .row p{font-size:15px;color:#222}
 .note{font-size:14px;background:#fff;border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:6px 10px;color:#333}
-.use-btn{align-self:flex-start;margin-top:2px;background:#fff;border:2px solid var(--a);border-radius:999px;padding:5px 14px;font-size:14px;font-weight:700;color:#0A3D4F;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.use-btn svg{width:14px;height:14px}
-.use-btn:hover{background:var(--a);color:var(--on)}
 
-/* Nav */
-.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.hint{font-size:14px;color:#767676}
-.btns{display:flex;gap:8px;margin-left:auto}
-.btn{font-size:18px;font-weight:700;border-radius:10px;padding:12px 22px;cursor:pointer;border:0;background:linear-gradient(90deg,#80EAFF,#50D0ED);color:#0A3D4F;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
-.btn:hover{filter:brightness(.96)}
-.btn svg{width:18px;height:18px}
-.btn-sec{background:#fff;border:2px solid #ecedea;padding:10px 20px}
-.btn-sec:hover{border-color:#50D0ED;filter:none}
 
-/* Form */
-.prep-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
-.prep-head h2{font-size:28px;font-weight:700;color:#111;line-height:1.2}
-.prep-head .sub{font-size:16px;color:#555;margin-top:2px}
-.plan-btn{background:#fff;border:2px solid #ecedea;border-radius:999px;padding:4px 14px;font-size:14px;font-weight:700;color:#0A3D4F;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
-.plan-btn:hover{border-color:#50D0ED}
-.plan-btn svg{width:12px;height:12px;transition:transform .2s}
-.plan-btn[aria-expanded="true"] svg{transform:rotate(90deg)}
-.form{flex:1 1 auto;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;align-content:start}
-.field{display:flex;flex-direction:column;min-width:0}
-.field label,.field legend{display:block;font-size:16px;font-weight:600;margin-bottom:6px;padding:0}
-fieldset{border:0;min-width:0}
-textarea{width:100%;font-size:16px;color:#000;background:#fff;border:2px solid #ecedea;border-radius:10px;padding:9px 12px;resize:vertical;line-height:1.45;min-height:62px;transition:border-color .15s,box-shadow .15s}
-textarea::placeholder{color:#767676}
-textarea:hover{border-color:#cfd2cc}
-textarea:focus{border-color:#50D0ED;box-shadow:0 0 0 3px rgba(128,234,255,.45)}
-textarea[aria-invalid="true"]{border-color:#D97706;background:#FFFBF2}
-.chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip span{display:inline-flex;align-items:center;gap:6px;border:2px solid #ecedea;background:#fff;border-radius:999px;padding:5px 12px;font-size:15px;font-weight:700;color:#0A3D4F;cursor:pointer}
-.chip span i{width:10px;height:10px;border-radius:50%;background:var(--a);display:inline-block}
-.chip input:checked+span{background:var(--t);border-color:var(--a);box-shadow:inset 0 0 0 1px var(--a)}
-.chip input:focus-visible+span{outline:3px solid #0A3D4F;outline-offset:2px}
-fieldset[aria-invalid="true"] .chip span{border-color:#D97706}
-.privacy{display:flex;align-items:center;gap:6px;font-size:14px;color:#767676}
-.privacy svg{width:14px;height:14px;color:#059669;flex:0 0 auto}
-.msg{font-size:14px;font-weight:600;border-radius:8px;padding:8px 12px}
-.msg.warn{background:#FFF6E3;color:#7A4A00}
-.msg.ok{background:#EAF9F3;color:#047857}
 
-.plan ol{list-style:none;display:flex;flex-direction:column;gap:8px}
-.plan li{display:flex;gap:12px;align-items:flex-start;background:#f7f7f5;border-left:4px solid var(--a);border-radius:0 10px 10px 0;padding:10px 14px}
-.plan li .t{flex:1;min-width:0;font-size:15px;overflow-wrap:anywhere}
-.plan li .t b{color:#0A3D4F}
-.plan li .t span{display:block}
-.rm{flex:0 0 auto;background:none;border:1px solid #cfd2cc;border-radius:999px;padding:3px 10px;font-size:13px;font-weight:600;cursor:pointer;color:#555}
-.rm:hover{border-color:#0A3D4F;color:#0A3D4F}
 
 @media (max-width:900px){
   .levers{grid-template-columns:1fr 1fr}
   .lever,.lever:nth-child(4){grid-column:span 1}
   .lever:nth-child(5){grid-column:span 2}
   .lever.open{grid-column:1 / -1}
-  .form{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   body{padding:16px}
   .levers{grid-template-columns:1fr}
   .lever,.lever:nth-child(4),.lever:nth-child(5){grid-column:span 1}
-  .stp .l{font-size:13px}
-  .btns{width:100%;flex-wrap:wrap}
-  .btns .btn{flex:1 1 auto;justify-content:center;white-space:normal;font-size:16px}
-  .lead{font-size:16px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+@media (max-width:560px){.lead{font-size:16px}}
 </style>
 </head>
 <body>
@@ -138,72 +76,14 @@ fieldset[aria-invalid="true"] .chip span{border-color:#D97706}
 </svg>
 
 <div class="app">
-  <nav aria-label="Activity steps">
-    <ol class="steps">
-      <li><button type="button" class="stp" id="stp1" data-v="1"><span class="n">1</span><span class="l">Five Practical Levers</span></button></li>
-      <li><button type="button" class="stp" id="stp2" data-v="2"><span class="n">2</span><span class="l">Choose a support action</span></button></li>
-    </ol>
-  </nav>
-
-  <!-- VIEW 1 -->
-  <main class="view" id="v1" aria-labelledby="stp1">
-    <p class="lead">Choose the lever based on the confirmed barrier—not the person’s position or personality.</p>
-    <div class="levers" id="levers"></div>
-    <div class="nav">
-      <p class="hint">Open a lever to see when to use it.</p>
-      <div class="btns"><button type="button" class="btn" id="toForm">Choose a support action<svg aria-hidden="true"><use href="#i-arrow-r"/></svg></button></div>
-    </div>
-  </main>
-
-  <!-- VIEW 2 -->
-  <main class="view" id="v2" aria-labelledby="formH" hidden>
-    <div class="prep-head">
-      <div>
-        <h2 id="formH" tabindex="-1">Choose a Practical Support Action</h2>
-        <p class="sub">Return to your focus priority and select the lever that best matches the evidence you have.</p>
-      </div>
-      <button type="button" class="plan-btn" id="planBtn" aria-expanded="false" aria-controls="plan" hidden><svg aria-hidden="true"><use href="#i-chev"/></svg><span id="planTitle">My Team Support Plan</span></button>
-    </div>
-    <div class="plan" id="plan" hidden><ol id="planList"></ol></div>
-
-    <div class="form">
-      <div class="field">
-        <label for="f-barrier">Confirmed barrier:</label>
-        <textarea id="f-barrier" data-k="barrier" rows="2" maxlength="300" placeholder="Example: The new approval step takes too long during peak hours."></textarea>
-      </div>
-      <fieldset class="field" id="fs-lever">
-        <legend>Selected lever:</legend>
-        <div class="chips" id="chips"></div>
-      </fieldset>
-      <div class="field">
-        <label for="f-action">Action I will take:</label>
-        <textarea id="f-action" data-k="action" rows="2" maxlength="300" placeholder="Example: Agree a temporary fast-track for urgent requests."></textarea>
-      </div>
-      <div class="field">
-        <label for="f-owner">Owner and timing:</label>
-        <textarea id="f-owner" data-k="owner" rows="2" maxlength="200" placeholder="Example: Me, with the system administrator, by Friday."></textarea>
-      </div>
-      <div class="field" style="grid-column:1 / -1">
-        <label for="f-measure">How we will know it helped:</label>
-        <textarea id="f-measure" data-k="measure" rows="2" maxlength="300" placeholder="Example: No one returns to the old system during the next busy week."></textarea>
-      </div>
-    </div>
-
-    <div class="nav">
-      <p class="privacy" id="privacy"><svg aria-hidden="true"><use href="#i-lock"/></svg>Saved only in this browser. No one else can see it.</p>
-      <p class="msg" id="msg" role="status" hidden></p>
-      <div class="btns">
-        <button type="button" class="btn btn-sec" id="back"><svg aria-hidden="true"><use href="#i-arrow-l"/></svg>Back</button>
-        <button type="button" class="btn" id="addBtn"><svg aria-hidden="true"><use href="#i-plus"/></svg>Add to My Team Support Plan</button>
-      </div>
-    </div>
-  </main>
+  <p class="lead">Choose the lever based on the confirmed barrier—not the person’s position or personality.</p>
+  <div class="levers" id="levers"></div>
 </div>
 
 <script>
 (function(){
   'use strict';
-  var KEY = 'ltc-five-levers-v1';
+  var KEY = 'ltc-five-levers-cards-v1';
   var L = [
     {id:'clarity', n:'Clarity', sh:'Make the next step clear', a:'#50D0ED', t:'#EAFAFE', x:'#0E6F87', on:'#0A3D4F',
      def:'Make expectations and the next step easier to understand.',
@@ -227,26 +107,11 @@ fieldset[aria-invalid="true"] .chip span{border-color:#D97706}
      use:'Progress depends on policy, system configuration, resources, authority, or a leadership decision.',
      act:'Document the evidence, identify the required decision, assign an owner, and communicate when the next update will be provided.'}
   ];
-  var FIELDS = ['barrier','action','owner','measure'];
   function $(s){ return document.querySelector(s); }
-  function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];}); }
-  function byId(id){ for(var i=0;i<L.length;i++) if(L[i].id===id) return L[i]; return null; }
   function vars(d){ return '--a:'+d.a+';--t:'+d.t+';--x:'+d.x+';--on:'+d.on; }
+  var open = null;
+  try{ open = localStorage.getItem(KEY); }catch(e){}
 
-  var state = {view:1, open:null, lever:'', barrier:'', action:'', owner:'', measure:'', plan:[]};
-  try{
-    var s = JSON.parse(localStorage.getItem(KEY) || 'null');
-    if(s){
-      if(s.view === 2) state.view = 2;
-      if(byId(s.open)) state.open = s.open;
-      if(byId(s.lever)) state.lever = s.lever;
-      FIELDS.forEach(function(k){ if(typeof s[k] === 'string') state[k] = s[k]; });
-      if(Array.isArray(s.plan)) state.plan = s.plan.filter(function(p){ return p && byId(p.lever); });
-    }
-  }catch(e){}
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
-
-  /* ---------- View 1: accordion cards ---------- */
   $('#levers').innerHTML = L.map(function(d){
     return '<div class="lever" id="lv-'+d.id+'" style="'+vars(d)+'">'+
       '<button type="button" class="lever-h" aria-expanded="false" aria-controls="lb-'+d.id+'" data-id="'+d.id+'">'+
@@ -258,102 +123,24 @@ fieldset[aria-invalid="true"] .chip span{border-color:#D97706}
         '<div class="row"><span class="k">Use when</span><p>'+d.use+'</p></div>'+
         '<div class="row"><span class="k">Possible actions</span><p>'+d.act+'</p></div>'+
         (d.note ? '<p class="note">'+d.note+'</p>' : '')+
-        '<button type="button" class="use-btn" data-use="'+d.id+'">Use this lever<svg aria-hidden="true"><use href="#i-arrow-r"/></svg></button>'+
       '</div></div>';
   }).join('');
 
-  function openLever(id){
-    state.open = (state.open === id) ? null : id;
+  function render(){
     L.forEach(function(d){
-      var on = state.open === d.id;
+      var on = open === d.id;
       $('#lv-'+d.id).classList.toggle('open', on);
       $('#lv-'+d.id+' .lever-h').setAttribute('aria-expanded', on ? 'true' : 'false');
       $('#lb-'+d.id).hidden = !on;
     });
-    save();
+    try{ open ? localStorage.setItem(KEY, open) : localStorage.removeItem(KEY); }catch(e){}
   }
   $('#levers').addEventListener('click', function(e){
-    var h = e.target.closest('.lever-h'); if(h){ openLever(h.dataset.id); return; }
-    var u = e.target.closest('.use-btn'); if(u){ state.lever = u.dataset.use; renderChips(); go(2, true); }
+    var h = e.target.closest('.lever-h'); if(!h) return;
+    open = (open === h.dataset.id) ? null : h.dataset.id; render();
   });
-  $('#toForm').addEventListener('click', function(){ go(2, true); });
-
-  /* ---------- View 2: form ---------- */
-  function renderChips(){
-    $('#chips').innerHTML = L.map(function(d){
-      return '<label class="chip" style="'+vars(d)+'"><input type="radio" name="lever" value="'+d.id+'"'+(state.lever===d.id?' checked':'')+'><span><i aria-hidden="true"></i>'+d.n+'</span></label>';
-    }).join('');
-  }
-  $('#chips').addEventListener('change', function(e){
-    state.lever = e.target.value; $('#fs-lever').removeAttribute('aria-invalid'); hideMsg(); save();
-  });
-  FIELDS.forEach(function(k){
-    var el = $('#f-'+k); el.value = state[k];
-    el.addEventListener('input', function(){ state[k] = el.value; el.removeAttribute('aria-invalid'); hideMsg(); save(); });
-  });
-
-  function showMsg(t, kind){ var m=$('#msg'); m.textContent=t; m.className='msg '+kind; m.hidden=false; $('#privacy').hidden=true; }
-  function hideMsg(){ var m=$('#msg'); m.hidden=true; m.textContent=''; $('#privacy').hidden=false; }
-
-  $('#addBtn').addEventListener('click', function(){
-    var labels = {barrier:'the confirmed barrier', action:'the action you will take', owner:'the owner and timing', measure:'how you will know it helped'};
-    if(!txt('barrier')) return need('barrier', labels.barrier);
-    if(!state.lever){ $('#fs-lever').setAttribute('aria-invalid','true'); showMsg('Select a lever.', 'warn'); $('#chips input').focus(); return; }
-    for(var i=1;i<FIELDS.length;i++){ if(!txt(FIELDS[i])) return need(FIELDS[i], labels[FIELDS[i]]); }
-    state.plan.push({lever:state.lever, barrier:txt('barrier'), action:txt('action'), owner:txt('owner'), measure:txt('measure')});
-    FIELDS.forEach(function(k){ state[k] = ''; $('#f-'+k).value = ''; });
-    state.lever = ''; renderChips();
-    save(); renderPlan(); renderSteps();
-    showMsg('✓ Added to your Team Support Plan.', 'ok');
-  });
-  function txt(k){ return (state[k] || '').trim(); }
-  function need(k, label){ var el=$('#f-'+k); el.setAttribute('aria-invalid','true'); showMsg('Add ' + label + '.', 'warn'); el.focus(); }
-
-  function renderPlan(){
-    var n = state.plan.length;
-    $('#planBtn').hidden = n === 0;
-    if(n === 0){ $('#plan').hidden = true; $('#planBtn').setAttribute('aria-expanded','false'); }
-    $('#planTitle').textContent = 'My Team Support Plan (' + n + ')';
-    $('#planList').innerHTML = state.plan.map(function(p,i){
-      var d = byId(p.lever);
-      return '<li style="--a:'+d.a+'"><span class="t"><b>'+d.n+':</b> '+esc(p.action)+
-        '<span>Barrier: '+esc(p.barrier)+'</span><span>Owner and timing: '+esc(p.owner)+'</span><span>We will know it helped if: '+esc(p.measure)+'</span></span>'+
-        '<button type="button" class="rm" data-i="'+i+'" aria-label="Remove entry '+(i+1)+'">Remove</button></li>';
-    }).join('');
-  }
-  $('#planBtn').addEventListener('click', function(){
-    var open = $('#plan').hidden;
-    $('#plan').hidden = !open; this.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-  $('#planList').addEventListener('click', function(e){
-    var b = e.target.closest('.rm'); if(!b) return;
-    state.plan.splice(+b.dataset.i, 1); save(); renderPlan(); renderSteps();
-    if(state.plan.length) $('#planBtn').focus(); else $('#addBtn').focus();
-  });
-  $('#back').addEventListener('click', function(){ go(1, true); });
-
-  /* ---------- Navigation ---------- */
-  function renderSteps(){
-    [1,2].forEach(function(n){
-      var b = $('#stp'+n);
-      if(state.view === n) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current');
-      var done = n === 1 ? state.view === 2 : state.plan.length > 0 && state.view !== 2;
-      b.classList.toggle('done', done);
-      b.querySelector('.n').innerHTML = done ? '<svg aria-hidden="true"><use href="#i-check"/></svg>' : n;
-    });
-  }
-  document.querySelectorAll('.stp').forEach(function(b){ b.addEventListener('click', function(){ go(+b.dataset.v, true); }); });
-  function go(v, focus){
-    state.view = v;
-    $('#v1').hidden = v !== 1; $('#v2').hidden = v !== 2;
-    if(v === 2){ hideMsg(); if(focus) $('#formH').focus(); }
-    if(v === 1 && focus){ var h = document.querySelector('.lever-h[aria-expanded="true"]') || $('.lever-h'); h.focus(); }
-    renderSteps(); save(); window.scrollTo(0,0);
-  }
-
-  renderChips(); renderPlan();
-  var o = state.open; state.open = null; if(o) openLever(o);
-  go(state.view, false);
+  if(!L.some(function(d){ return d.id === open; })) open = null;
+  render();
 })();
 </script>
 </body>
