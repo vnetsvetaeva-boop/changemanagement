@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reinforcement Loop</title>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+body{font-family:'Bai Jamjuree',Arial,sans-serif;background:#fff;color:#000;padding:20px 28px;line-height:1.5;max-width:100%;margin:0 auto;overflow-x:hidden}
+button{font-family:inherit}
+button:focus{outline:none}
+button:focus-visible{outline:3px solid #0A3D4F;outline-offset:3px}
+
+.app{min-height:calc(100vh - 40px);display:flex;flex-direction:column;gap:clamp(14px,2.4vh,22px)}
+
+/* Connected steps */
+.path{list-style:none;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));position:relative}
+.path::before{content:"";position:absolute;left:8.33%;right:8.33%;top:clamp(20px,3vh,26px);height:3px;background:#ecedea;border-radius:2px}
+.path li{position:relative;display:flex;justify-content:center}
+.stp{background:none;border:0;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:0 4px 4px;border-radius:10px;min-width:0}
+.stp .n{width:clamp(40px,6vh,52px);height:clamp(40px,6vh,52px);border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #ecedea;font-weight:700;font-size:clamp(16px,2.2vh,20px);color:#767676;transition:background .2s,border-color .2s,color .2s,transform .2s;position:relative;z-index:1}
+.stp .n svg{width:45%;height:45%}
+.stp .l{font-size:clamp(13px,1.9vh,16px);font-weight:700;color:#767676;text-align:center;line-height:1.2}
+.stp.seen .n{border-color:var(--a);color:var(--x)}
+.stp.seen .l{color:#0A3D4F}
+.stp[aria-current="step"] .n{background:var(--a);border-color:var(--a);color:var(--on);transform:scale(1.08)}
+.stp[aria-current="step"] .l{color:#0A3D4F}
+.stp:hover .n{border-color:var(--a)}
+
+/* Part card */
+.card{flex:1 1 auto;border-radius:14px;background:var(--t);border:2px solid var(--a);padding:clamp(18px,3.4vh,36px) clamp(20px,3vw,40px);display:flex;flex-direction:column;justify-content:center;gap:clamp(14px,2.6vh,24px);transition:background .25s,border-color .25s}
+.k{font-size:clamp(12px,1.5vh,14px);font-weight:700;text-transform:uppercase;letter-spacing:1.1px;color:var(--x)}
+.card h2{font-size:clamp(36px,6vh,52px);font-weight:700;color:#0A3D4F;line-height:1.1}
+h2:focus{outline:none}
+.pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:clamp(14px,2.4vw,28px);align-items:stretch}
+.qbox{display:flex;flex-direction:column;justify-content:center}
+.qbox .k{margin-bottom:6px}
+.qbox p{font-size:clamp(26px,4.4vh,38px);font-weight:700;color:#111;line-height:1.25}
+.ex{background:#fff;border-radius:12px;padding:clamp(16px,2.8vh,26px) clamp(18px,2.2vw,26px);position:relative;display:flex;flex-direction:column;justify-content:center}
+.ex .k{margin-bottom:6px}
+.ex p{font-size:clamp(20px,3.2vh,27px);font-weight:500;color:#111;line-height:1.4}
+.ex::before{content:"“";position:absolute;right:16px;top:-6px;font-size:72px;line-height:1;color:var(--a);opacity:.5;font-weight:700}
+
+/* Final message */
+.final{flex:1 1 auto;border-radius:14px;background:#f7f7f5;border:2px solid #ecedea;padding:clamp(12px,3vh,30px) clamp(20px,3vw,36px);display:flex;flex-direction:column;gap:clamp(10px,2vh,18px)}
+.final .head{display:flex;align-items:center;gap:12px}
+.final .ico{flex:0 0 auto;width:clamp(40px,6vh,52px);height:clamp(40px,6vh,52px);border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#80EAFF,#50D0ED);color:#0A3D4F}
+.final .ico svg{width:55%;height:55%}
+.final h2{font-size:clamp(24px,3.8vh,34px);font-weight:700;color:#0A3D4F;line-height:1.15}
+.lines{list-style:none;flex:1;display:flex;flex-direction:column;gap:clamp(6px,1.2vh,10px)}
+.lines li{flex:1;display:flex;flex-direction:column;justify-content:center;gap:2px;background:#fff;border-left:5px solid var(--a);border-radius:0 10px 10px 0;padding:clamp(8px,1.4vh,14px) 16px}
+.lines .h{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--x)}
+.lines .h span{font-weight:600;text-transform:none;letter-spacing:0;color:#6b6b6b;font-size:13px}
+.lines .t{font-size:clamp(16px,2.4vh,21px);font-weight:500;color:#111}
+
+/* Nav */
+.nav{display:flex;justify-content:space-between;gap:10px}
+.btn{font-size:clamp(15px,2vh,17px);font-weight:700;border-radius:10px;padding:10px 18px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border:2px solid #ecedea;background:#fff;color:#0A3D4F}
+.btn:hover{border-color:#50D0ED}
+.btn svg{width:16px;height:16px}
+.btn.primary{border:0;background:linear-gradient(90deg,#80EAFF,#50D0ED);padding:12px 20px}
+.btn.ghost{visibility:hidden}
+
+@media (max-width:760px){
+  .pair{grid-template-columns:1fr}
+  .lines li{flex:none}
+}
+@media (max-width:560px){
+  body{padding:16px}
+  .stp .l{font-size:11px}
+  .path::before{left:8%;right:8%}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M3 21v-5h5"/></symbol>
+  <symbol id="i-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+  <symbol id="i-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m11 18-6-6 6-6"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></symbol>
+</svg>
+
+<div class="app">
+  <nav aria-label="Five elements of reinforcement"><ol class="path" id="path"></ol></nav>
+
+  <section class="card" id="card" aria-live="polite">
+    <div>
+      <p class="k" id="cKicker">Element 1 of 5</p>
+      <h2 id="cName" tabindex="-1"></h2>
+    </div>
+    <div class="pair">
+      <div class="qbox"><span class="k">Design question</span><p id="cQ"></p></div>
+      <div class="ex"><span class="k">Example</span><p id="cEx"></p></div>
+    </div>
+  </section>
+
+  <section class="final" id="final" hidden aria-labelledby="fH">
+    <div class="head">
+      <span class="ico" aria-hidden="true"><svg><use href="#i-msg"/></svg></span>
+      <h2 id="fH" tabindex="-1">The complete reinforcement loop</h2>
+    </div>
+    <ol class="lines" id="lines"></ol>
+  </section>
+
+  <div class="nav">
+    <button type="button" class="btn" id="prev"><svg aria-hidden="true"><use href="#i-l"/></svg>Previous</button>
+    <button type="button" class="btn primary" id="next">Next element<svg aria-hidden="true"><use href="#i-r"/></svg></button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var KEY = 'ltc-reinforcement-explore-v1';
+  var P = [
+    {n:'Behavior',    q:'What observable action should occur?',                   ex:'Start every new request in the global tool.', a:'#50D0ED', t:'#EAFAFE', x:'#0E6F87', on:'#0A3D4F'},
+    {n:'Trigger',     q:'What will prompt the action at the right moment?',       ex:'A link in the team channel and a short checklist.', a:'#B8E62E', t:'#F7FFDD', x:'#4D6600', on:'#0A3D4F'},
+    {n:'Practice',    q:'Where can people try safely?',                           ex:'One guided request during office hours.', a:'#9580FF', t:'#F1EEFF', x:'#4B36C2', on:'#fff'},
+    {n:'Recognition', q:'How will progress be noticed specifically?',             ex:'“Your update helped us spot the approval delay earlier.”', a:'#F59E0B', t:'#FEF6E7', x:'#B45309', on:'#0A3D4F'},
+    {n:'Checkpoint',  q:'When will you review evidence and adjust support?',      ex:'Review adoption and blockers in two weeks.', a:'#10B981', t:'#EAF9F3', x:'#047857', on:'#fff'}
+  ];
+  var FINAL = 5, LAST = 5;
+  var FIN = {n:'Loop', a:'#0A3D4F', x:'#0A3D4F', on:'#fff'};
+  function $(s){ return document.querySelector(s); }
+  function vars(el,p){ ['a','t','x','on'].forEach(function(k){ if(p[k]) el.style.setProperty('--'+k, p[k]); }); }
+  var R = '<svg aria-hidden="true"><use href="#i-r"/></svg>';
+
+  var cur = 0, seen = [0];
+  try{
+    var s = JSON.parse(localStorage.getItem(KEY) || 'null');
+    if(s){ if(s.cur >= 0 && s.cur <= LAST) cur = s.cur; if(Array.isArray(s.seen)) seen = s.seen.filter(function(i){ return i>=0 && i<=LAST; }); }
+  }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify({cur:cur, seen:seen})); }catch(e){} }
+
+  $('#path').innerHTML = P.concat([FIN]).map(function(p,i){
+    var inner = i === FINAL ? '<svg aria-hidden="true"><use href="#i-msg"/></svg>' : (i+1);
+    return '<li><button type="button" class="stp" data-i="'+i+'" style="--a:'+p.a+';--x:'+p.x+';--on:'+p.on+'" aria-label="'+(i===FINAL?'The complete reinforcement loop':'Element '+(i+1)+': '+p.n)+'"><span class="n">'+inner+'</span><span class="l">'+p.n+'</span></button></li>';
+  }).join('');
+  $('#lines').innerHTML = P.map(function(p,i){
+    return '<li style="--a:'+p.a+';--x:'+p.x+'"><span class="h">'+(i+1)+'. '+p.n+' <span>· '+p.q+'</span></span><span class="t">'+p.ex+'</span></li>';
+  }).join('');
+
+  function go(i, focus){
+    cur = i; if(seen.indexOf(i) < 0) seen.push(i);
+    var isFinal = i === FINAL;
+    $('#card').hidden = isFinal; $('#final').hidden = !isFinal;
+    if(!isFinal){
+      var p = P[i];
+      vars($('#card'), p);
+      $('#cKicker').textContent = 'Element ' + (i+1) + ' of 5';
+      $('#cName').textContent = p.n;
+      $('#cQ').textContent = p.q;
+      $('#cEx').textContent = p.ex;
+    }
+    $('#prev').classList.toggle('ghost', i === 0);
+    $('#prev').tabIndex = i === 0 ? -1 : 0;
+    var nx = $('#next');
+    if(isFinal){ nx.innerHTML = 'Start again<svg aria-hidden="true"><use href="#i-reset"/></svg>'; }
+    else if(i === 4){ nx.innerHTML = 'See the complete loop' + R; }
+    else { nx.innerHTML = 'Next element' + R; }
+    document.querySelectorAll('.stp').forEach(function(b){
+      var k = +b.dataset.i;
+      b.classList.toggle('seen', seen.indexOf(k) > -1);
+      if(k === i) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current');
+    });
+    save();
+    if(focus) (isFinal ? $('#fH') : $('#cName')).focus({preventScroll:true});
+  }
+
+  $('#path').addEventListener('click', function(e){ var b = e.target.closest('.stp'); if(b) go(+b.dataset.i, true); });
+  $('#prev').addEventListener('click', function(){ if(cur > 0) go(cur - 1, true); });
+  $('#next').addEventListener('click', function(){ cur < LAST ? go(cur + 1, true) : go(0, true); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight' && cur < LAST) go(cur + 1, true);
+    if(e.key === 'ArrowLeft' && cur > 0) go(cur - 1, true);
+  });
+
+  go(cur, false);
+})();
+</script>
+</body>
+</html>
